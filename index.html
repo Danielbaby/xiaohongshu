@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="description" content="情侣宿命感测试 | 星盘深度匹配，解锁你们的缘分密码">
+    <meta property="og:title" content="情侣宿命感测试 | 星盘深度匹配">
+    <meta property="og:description" content="测一测你们的宿命缘分指数，解锁专属爱情建议">
+    <meta property="og:image" content="https://source.unsplash.com/random/800x600/?love,constellation">
+    <meta property="og:type" content="website">
+    <title>✨ 情侣宿命感测试 | 星盘深度匹配</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'PingFang SC', 'Microsoft Yahei', sans-serif; }
+        
+        :root {
+            --primary-color: #7928ca;
+            --secondary-color: #ff0080;
+            --accent-color: #00fff5;
+            --bg-gradient: linear-gradient(135deg, #12c2e9 0%, #c471ed 50%, #f64f59 100%);
+            --light-bg: rgba(255, 255, 255, 0.95);
+            --shadow: 0 15px 35px rgba(121, 40, 202, 0.3);
+        }
+        
+        body { 
+            background: var(--bg-gradient); 
+            min-height: 100vh; 
+            padding: 20px;
+            background-attachment: fixed;
+            color: #333;
+        }
+        
+        .container { 
+            max-width: 600px; 
+            margin: 0 auto; 
+            background: var(--light-bg); 
+            border-radius: 24px; 
+            padding: 30px; 
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+        }
+        
+        h1 { 
+            color: var(--primary-color); 
+            text-align: center; 
+            margin-bottom: 30px; 
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-shadow: 0 2px 10px rgba(121, 40, 202, 0.2);
+            line-height: 1.4;
+        }
+        
+        /* 输入区域样式 */
+        .input-group { margin-bottom: 20px; }
+        .input-row { 
+            display: flex; 
+            gap: 15px; 
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        .input-row div { flex: 1; min-width: 140px; }
+        
+        label { 
+            display: block; 
+            color: #333; 
+            margin-bottom: 8px; 
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+        
+        input { 
+            width: 100%; 
+            padding: 14px 18px; 
+            border: 2px solid #f0e6ff; 
+            border-radius: 12px; 
+            font-size: 1rem; 
+            transition: all 0.3s;
+            background: rgba(255, 255, 255, 0.8);
+        }
+        
+        input[type="date"] {
+            cursor: pointer;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' fill='%237928ca' viewBox='0 0 16 16'%3E%3Cpath d='M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z'/%3E%3Cpath d='M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            padding-right: 40px;
+        }
+        
+        input:focus { 
+            outline: none; 
+            border-color: var(--primary-color); 
+            box-shadow: 0 0 0 3px rgba(121, 40, 202, 0.1);
+        }
+        
+        input.error { border-color: #ff4d4d; }
+        
+        .error-message {
+            color: #ff4d4d;
+            font-size: 0.75rem;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .date-hint {
+            color: #999;
+            font-size: 0.75rem;
+            margin-top: 5px;
+        }
+        
+        /* 按钮样式 */
+        button { 
+            width: 100%; 
+            padding: 16px; 
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color)); 
+            color: white; 
+            border: none; 
+            border-radius: 12px; 
+            font-size: 1.125rem; 
+            cursor: pointer; 
+            transition: all 0.3s;
+            margin-top: 10px;
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(121, 40, 202, 0.2);
+        }
+        
+        button:hover { 
+            transform: translateY(-3px); 
+            box-shadow: 0 6px 20px rgba(121, 40, 202, 0.3);
+        }
+        
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        /* 答题区域样式 */
+        #quiz-section {
+            display: none;
+            margin-top: 30px;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        .quiz-progress-bar {
+            height: 8px;
+            background: #f0e6ff;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        
+        .quiz-progress-fill {
+            height: 100%;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            border-radius: 4px;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        
+        .quiz-card {
+            background: linear-gradient(135deg, #fdf4ff 0%, #fef7fb 100%); 
+            border-radius: 18px; 
+            padding: 25px; 
+            margin-bottom: 20px;
+            border: 1px solid #f0e6ff;
+        }
+        
+        .question {
+            font-size: 1.25rem;
+            color: #333;
+            margin-bottom: 20px;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .option {
+            padding: 15px 20px;
+            background: #fff;
+            border: 2px solid #f0e6ff;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+        
+        .option:hover {
+            border-color: var(--primary-color);
+            background: #fdf4ff;
+            transform: translateX(5px);
+        }
+        
+        .option.selected {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-color: var(--primary-color);
+            transform: translateX(5px);
+        }
+        
+        .quiz-nav {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .quiz-nav button {
+            flex: 1;
+            padding: 14px;
+            font-size: 1rem;
+        }
+        
+        /* 结果区域样式 */
+        #result { 
+            margin-top: 30px; 
+            display: none; 
+            animation: fadeIn 0.8s ease;
+        }
+        
+        .result-card { 
+            background: linear-gradient(135deg, #fdf4ff 0%, #fef7fb 100%); 
+            border-radius: 18px; 
+            padding: 25px; 
+            margin-bottom: 20px;
+            border: 1px solid #f0e6ff;
+            position: relative;
+        }
+        
+        .result-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+        }
+        
+        .result-title { 
+            color: var(--primary-color); 
+            font-size: 1.3rem; 
+            margin-bottom: 15px; 
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .result-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #eee;
+        }
+        
+        .progress-bar { 
+            height: 22px; 
+            background: #f0e6ff; 
+            border-radius: 11px; 
+            margin: 10px 0; 
+            overflow: hidden;
+        }
+        
+        .progress-fill { 
+            height: 100%; 
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color)); 
+            border-radius: 11px; 
+            transition: width 1.2s ease; 
+            width: 0;
+            box-shadow: 0 0 10px rgba(121, 40, 202, 0.3);
+        }
+        
+        .percentage { 
+            text-align: right; 
+            color: var(--primary-color); 
+            font-weight: 600; 
+            margin-top: 5px;
+            font-size: 1.1rem;
+        }
+        
+        /* 星盘样式 */
+        .horoscope { 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            margin: 20px 0;
+        }
+        
+        .horoscope-circle { 
+            width: 200px; 
+            height: 200px; 
+            border-radius: 50%; 
+            border: 10px solid;
+            border-image: linear-gradient(to right, var(--primary-color), var(--secondary-color), var(--accent-color)) 1;
+            position: relative; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center;
+            background: radial-gradient(circle, rgba(255,253,255,0.9) 0%, rgba(255,248,253,0.6) 100%);
+            box-shadow: 0 8px 30px rgba(121, 40, 202, 0.2);
+            animation: rotateSlow 20s linear infinite;
+        }
+        
+        .horoscope-inner { 
+            width: 150px; 
+            height: 150px; 
+            border-radius: 50%; 
+            background: #fff; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center;
+            box-shadow: inset 0 0 20px rgba(121, 40, 202, 0.1);
+        }
+        
+        .constellation-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 1.1rem;
+            color: #333;
+        }
+        
+        .constellation-icon {
+            font-size: 2.5rem;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 3px 6px rgba(121, 40, 202, 0.2));
+        }
+        
+        .constellation-name {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        
+        .heart-icon {
+            font-size: 2rem;
+            color: var(--secondary-color);
+            margin: 8px 0;
+            animation: pulse 2s infinite;
+        }
+        
+        .love-percentage-desc {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+        
+        /* 运势卡片样式 */
+        .fortune-card {
+            background: linear-gradient(135deg, #f0f8fb 0%, #e8f4f8 100%);
+            border-radius: 18px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #e0f2fe;
+            position: relative;
+        }
+        
+        .fortune-title {
+            color: #4299e1;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .fortune-content {
+            color: #333;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+        
+        .fortune-date {
+            color: #999;
+            font-size: 0.8rem;
+            margin-top: 10px;
+            text-align: right;
+        }
+        
+        /* 建议列表样式 */
+        .advice-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .advice-list li {
+            padding: 12px 15px;
+            background: #fff;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            border-left: 4px solid var(--primary-color);
+            box-shadow: 0 2px 8px rgba(121, 40, 202, 0.08);
+            transition: transform 0.3s;
+            line-height: 1.6;
+        }
+        
+        .advice-list li:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(121, 40, 202, 0.12);
+        }
+        
+        .advice-list li::before {
+            content: '✨';
+            margin-right: 8px;
+            color: var(--secondary-color);
+        }
+        
+        /* 分享区域样式 */
+        .share-section {
+            margin-top: 20px;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5fafe 0%, #eaf6fa 100%);
+            border-radius: 18px;
+            text-align: center;
+        }
+        
+        .share-title {
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .share-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .share-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            flex: 1;
+            min-width: 120px;
+        }
+        
+        .share-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .share-icon {
+            font-size: 1.2rem;
+        }
+        
+        /* 动画效果 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes rotateSlow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* 响应式适配 */
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+                margin-bottom: 20px;
+            }
+            
+            .horoscope-circle {
+                width: 160px;
+                height: 160px;
+            }
+            
+            .horoscope-inner {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .constellation-icon {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>💑 情侣宿命感测试 | 星盘深度匹配</h1>
+        
+        <!-- 输入信息区域 -->
+        <div id="input-section" class="input-group">
+            <div class="input-row">
+                <div>
+                    <label>你的姓名</label>
+                    <input type="text" id="name1" placeholder="请输入真实姓名（如：张三）" oninput="validateNameRealTime('name1')">
+                    <div id="name1-error" class="error-message">请输入有效的姓名（需包含汉字/字母，1-20字符）</div>
+                </div>
+                <div>
+                    <label>你的生日</label>
+                    <input type="date" id="birthday1" max="" placeholder="选择生日" onfocus="this.showPicker()" onchange="checkAge('birthday1')">
+                    <div id="birthday1-error" class="error-message">年龄必须年满12岁，且不能选择未来日期</div>
+                    <div class="date-hint">格式：YYYY-MM-DD（例如：2000-01-01）</div>
+                </div>
+            </div>
+            
+            <div class="input-row">
+                <div>
+                    <label>TA的姓名</label>
+                    <input type="text" id="name2" placeholder="请输入TA的真实姓名（如：李四）" oninput="validateNameRealTime('name2')">
+                    <div id="name2-error" class="error-message">请输入有效的姓名（需包含汉字/字母，1-20字符）</div>
+                </div>
+                <div>
+                    <label>TA的生日</label>
+                    <input type="date" id="birthday2" max="" placeholder="选择生日" onfocus="this.showPicker()" onchange="checkAge('birthday2')">
+                    <div id="birthday2-error" class="error-message">年龄必须年满12岁，且不能选择未来日期</div>
+                    <div class="date-hint">格式：YYYY-MM-DD（例如：2000-01-01）</div>
+                </div>
+            </div>
+            
+            <button onclick="startQuiz()">开始宿命测试</button>
+        </div>
+        
+        <!-- 答题区域 -->
+        <div id="quiz-section">
+            <div class="quiz-header">
+                <span>题目 <span id="current-question">1</span>/30</span>
+                <span id="progress-percent">3%</span>
+            </div>
+            
+            <div class="quiz-progress-bar">
+                <div id="quiz-progress-fill" class="quiz-progress-fill"></div>
+            </div>
+            
+            <div class="quiz-card">
+                <div class="question" id="question-text">加载题目中...</div>
+                <div class="options" id="options-container"></div>
+            </div>
+            
+            <div class="quiz-nav">
+                <button id="prev-btn" onclick="prevQuestion()">上一题</button>
+                <button id="next-btn" onclick="nextQuestion()" style="display: none;">下一题</button>
+                <button id="submit-btn" onclick="calculateResult()" style="display: none;">查看结果</button>
+            </div>
+        </div>
+        
+        <!-- 结果区域 -->
+        <div id="result">
+            <div class="result-card">
+                <div class="result-title">缘分占比</div>
+                <div id="lovePercentageText"></div>
+                <div id="lovePercentageDesc" class="love-percentage-desc"></div>
+                <div class="progress-bar">
+                    <div id="loveProgress" class="progress-fill"></div>
+                </div>
+                <div class="percentage" id="lovePercent"></div>
+            </div>
+            
+            <div class="result-card">
+                <div class="result-title">星盘匹配度</div>
+                <div class="horoscope">
+                    <div class="horoscope-circle">
+                        <div class="horoscope-inner">
+                            <div id="constellation1" class="constellation-item"></div>
+                            <div class="heart-icon">❤</div>
+                            <div id="constellation2" class="constellation-item"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="matchDegreeText"></div>
+                <div class="progress-bar">
+                    <div id="matchProgress" class="progress-fill"></div>
+                </div>
+                <div class="percentage" id="matchPercent"></div>
+            </div>
+            
+            <!-- 运势卡片 -->
+            <div class="fortune-card">
+                <div class="fortune-title">🔮 今日双人运势</div>
+                <div class="fortune-content" id="todayFortune"></div>
+                <div class="fortune-date" id="fortuneDate"></div>
+            </div>
+            
+            <div class="fortune-card">
+                <div class="fortune-title">🌟 本周爱情指引</div>
+                <div class="fortune-content" id="weekFortune"></div>
+            </div>
+            
+            <div class="result-card">
+                <div class="result-title">你们的恋爱特质</div>
+                <div id="love-traits" style="color: #555; line-height: 1.6;"></div>
+            </div>
+            
+            <div class="result-card">
+                <div class="result-title">宿命恋爱建议</div>
+                <ul class="advice-list" id="adviceList"></ul>
+            </div>
+            
+            <!-- 分享区域 -->
+            <div class="share-section">
+                <div class="share-title">💖 分享你们的缘分结果</div>
+                <div class="share-buttons">
+                    <div class="share-btn" onclick="shareToWechat()">
+                        <span class="share-icon">📱</span>
+                        <span>微信好友</span>
+                    </div>
+                    <div class="share-btn" onclick="shareToMoments()">
+                        <span class="share-icon">📖</span>
+                        <span>朋友圈</span>
+                    </div>
+                    <div class="share-btn" onclick="copyResultLink()">
+                        <span class="share-icon">🔗</span>
+                        <span>复制链接</span>
+                    </div>
+                </div>
+            </div>
+            
+            <button onclick="restartTest()" style="margin-top: 20px;">重新测试</button>
+        </div>
+    </div>
+
+    <script>
+        // 设置最大日期为今天
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('birthday1').max = today;
+            document.getElementById('birthday2').max = today;
+        });
+
+        // 星座数据
+        const constellationData = {
+            "白羊座": { icon: "♈", element: "火", traits: ["热情", "冲动", "勇敢", "直接"] },
+            "金牛座": { icon: "♉", element: "土", traits: ["稳重", "固执", "务实", "忠诚"] },
+            "双子座": { icon: "♊", element: "风", traits: ["灵活", "善变", "聪明", "沟通"] },
+            "巨蟹座": { icon: "♋", element: "水", traits: ["敏感", "顾家", "情绪化", "保护"] },
+            "狮子座": { icon: "♌", element: "火", traits: ["自信", "慷慨", "骄傲", "领导力"] },
+            "处女座": { icon: "♍", element: "土", traits: ["细致", "挑剔", "分析", "服务"] },
+            "天秤座": { icon: "♎", element: "风", traits: ["和谐", "犹豫", "爱美", "公正"] },
+            "天蝎座": { icon: "♏", element: "水", traits: ["神秘", "执着", "直觉", "力量"] },
+            "射手座": { icon: "♐", element: "火", traits: ["乐观", "自由", "冒险", "哲学"] },
+            "摩羯座": { icon: "♑", element: "土", traits: ["踏实", "严肃", "野心", "自律"] },
+            "水瓶座": { icon: "♒", element: "风", traits: ["创新", "独立", "人道", "叛逆"] },
+            "双鱼座": { icon: "♓", element: "水", traits: ["梦幻", "善良", "直觉", "牺牲"] }
+        };
+
+        // 验证姓名
+        function validateNameRealTime(id) {
+            const input = document.getElementById(id);
+            const error = document.getElementById(id + '-error');
+            const nameRegex = /^[\u4e00-\u9fa5a-zA-Z]{1,20}$/;
+            
+            if (!nameRegex.test(input.value.trim())) {
+                input.classList.add('error');
+                error.style.display = 'block';
+                return false;
+            } else {
+                input.classList.remove('error');
+                error.style.display = 'none';
+                return true;
+            }
+        }
+
+        // 检查年龄
+        function checkAge(id) {
+            const input = document.getElementById(id);
+            const error = document.getElementById(id + '-error');
+            const birthday = new Date(input.value);
+            const today = new Date();
+            const minAgeDate = new Date();
+            minAgeDate.setFullYear(minAgeDate.getFullYear() - 12);
+            
+            if (birthday > today || birthday > minAgeDate) {
+                input.classList.add('error');
+                error.style.display = 'block';
+                return false;
+            } else {
+                input.classList.remove('error');
+                error.style.display = 'none';
+                return true;
+            }
+        }
+
+        // 开始测试
+        function startQuiz() {
+            const name1Valid = validateNameRealTime('name1');
+            const name2Valid = validateNameRealTime('name2');
+            const birthday1Valid = checkAge('birthday1');
+            const birthday2Valid = checkAge('birthday2');
+            
+            if (name1Valid && name2Valid && birthday1Valid && birthday2Valid) {
+                document.getElementById('input-section').style.display = 'none';
+                document.getElementById('quiz-section').style.display = 'block';
+                
+                // 保存用户信息
+                userInfo = {
+                    name1: document.getElementById('name1').value,
+                    name2: document.getElementById('name2').value,
+                    birthday1: document.getElementById('birthday1').value,
+                    birthday2: document.getElementById('birthday2').value
+                };
+                
+                // 初始化测试
+                initQuiz();
+            } else {
+                alert('请正确填写所有信息');
+            }
+        }
+
+        // 初始化测试
+        function initQuiz() {
+            currentQuestionIndex = 0;
+            userAnswers = [];
+            
+            // 从题库中随机选择29题（排除第一题）
+            const shuffledQuestions = [...fullQuizBank];
+            // 固定第一题
+            const firstQuestion = shuffledQuestions[0];
+            
+            // 打乱剩余题目
+            for (let i = shuffledQuestions.length - 1; i > 1; i--) {
+                const j = Math.floor(Math.random() * (i - 1)) + 1;
+                [shuffledQuestions[i], shuffledQuestions[j]] = [shuffledQuestions[j], shuffledQuestions[i]];
+            }
+            
+            // 选择前30题（第一题固定，其余29题随机）
+            quizQuestions = [firstQuestion, ...shuffledQuestions.slice(1, 30)];
+            
+            loadQuestion();
+            updateProgress();
+        }
+
+        // 加载题目
+        function loadQuestion() {
+            const question = quizQuestions[currentQuestionIndex];
+            document.getElementById('question-text').textContent = question.question;
+            
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const optionElement = document.createElement('div');
+                optionElement.className = 'option';
+                optionElement.textContent = option;
+                optionElement.onclick = () => selectOption(index);
+                optionsContainer.appendChild(optionElement);
+            });
+            
+            // 更新按钮状态
+            document.getElementById('prev-btn').disabled = currentQuestionIndex === 0;
+            
+            // 隐藏下一题和提交按钮，使用自动跳转
+            document.getElementById('next-btn').style.display = 'none';
+            document.getElementById('submit-btn').style.display = 'none';
+        }
+
+        // 选择选项 - 修改为立即跳转
+        function selectOption(index) {
+            const options = document.querySelectorAll('.option');
+            options.forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            options[index].classList.add('selected');
+            
+            userAnswers[currentQuestionIndex] = index;
+            
+            // 立即跳转到下一题或提交
+            if (currentQuestionIndex < quizQuestions.length - 1) {
+                // 不是最后一题，立即跳转到下一题
+                currentQuestionIndex++;
+                loadQuestion();
+                updateProgress();
+            } else {
+                // 最后一题，立即提交
+                calculateResult();
+            }
+        }
+
+        // 上一题
+        function prevQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                loadQuestion();
+                updateProgress();
+                
+                // 恢复之前的选择
+                if (userAnswers[currentQuestionIndex] !== undefined) {
+                    const options = document.querySelectorAll('.option');
+                    options[userAnswers[currentQuestionIndex]].classList.add('selected');
+                }
+            }
+        }
+
+        // 下一题
+        function nextQuestion() {
+            if (currentQuestionIndex < quizQuestions.length - 1 && userAnswers[currentQuestionIndex] !== undefined) {
+                currentQuestionIndex++;
+                loadQuestion();
+                updateProgress();
+                
+                // 恢复之前的选择
+                if (userAnswers[currentQuestionIndex] !== undefined) {
+                    const options = document.querySelectorAll('.option');
+                    options[userAnswers[currentQuestionIndex]].classList.add('selected');
+                }
+            }
+        }
+
+        // 更新进度
+        function updateProgress() {
+            const progress = ((currentQuestionIndex + 1) / quizQuestions.length) * 100;
+            document.getElementById('quiz-progress-fill').style.width = progress + '%';
+            document.getElementById('current-question').textContent = currentQuestionIndex + 1;
+            document.getElementById('progress-percent').textContent = Math.round(progress) + '%';
+        }
+
+        // 计算结果
+        function calculateResult() {
+            if (userAnswers.length !== quizQuestions.length) {
+                alert('请完成所有题目');
+                return;
+            }
+            
+            document.getElementById('quiz-section').style.display = 'none';
+            document.getElementById('result').style.display = 'block';
+            
+            // 计算得分
+            let totalScore = 0;
+            let maxScore = 0;
+            
+            userAnswers.forEach((answer, index) => {
+                const question = quizQuestions[index];
+                totalScore += question.weight[answer];
+                maxScore += Math.max(...question.weight);
+            });
+            
+            const lovePercentage = Math.round((totalScore / maxScore) * 100);
+            
+            // 显示结果
+            displayResults(lovePercentage);
+        }
+
+        // 显示结果
+        function displayResults(lovePercentage) {
+            // 缘分占比
+            document.getElementById('lovePercent').textContent = lovePercentage + '%';
+            document.getElementById('loveProgress').style.width = lovePercentage + '%';
+            
+            let loveText = '';
+            let loveDesc = '';
+            
+            if (lovePercentage >= 90) {
+                loveText = '天生一对！你们的缘分指数爆表';
+                loveDesc = '你们是彼此命中注定的灵魂伴侣，默契十足，相处融洽';
+            } else if (lovePercentage >= 80) {
+                loveText = '非常匹配！你们的缘分很深';
+                loveDesc = '你们有着很好的感情基础，相处愉快，未来发展潜力巨大';
+            } else if (lovePercentage >= 70) {
+                loveText = '比较匹配！缘分不错';
+                loveDesc = '你们有很多共同点，相处融洽，需要更多时间磨合';
+            } else if (lovePercentage >= 60) {
+                loveText = '一般匹配！缘分尚可';
+                loveDesc = '你们有发展的可能性，但需要双方共同努力经营';
+            } else {
+                loveText = '需要努力！缘分有待提升';
+                loveDesc = '你们在相处中可能会遇到一些挑战，需要更多理解和包容';
+            }
+            
+            document.getElementById('lovePercentageText').textContent = loveText;
+            document.getElementById('lovePercentageDesc').textContent = loveDesc;
+            
+            // 星座匹配
+            const constellation1 = getConstellation(userInfo.birthday1);
+            const constellation2 = getConstellation(userInfo.birthday2);
+            
+            document.getElementById('constellation1').innerHTML = 
+                `<div class="constellation-icon">${constellationData[constellation1].icon}</div>
+                 <div class="constellation-name">${constellation1}</div>`;
+            
+            document.getElementById('constellation2').innerHTML = 
+                `<div class="constellation-icon">${constellationData[constellation2].icon}</div>
+                 <div class="constellation-name">${constellation2}</div>`;
+            
+            // 计算星座匹配度
+            const matchPercentage = calculateConstellationMatch(constellation1, constellation2);
+            document.getElementById('matchPercent').textContent = matchPercentage + '%';
+            document.getElementById('matchProgress').style.width = matchPercentage + '%';
+            
+            let matchText = '';
+            if (matchPercentage >= 90) {
+                matchText = '星座绝配！你们的星盘高度契合';
+            } else if (matchPercentage >= 80) {
+                matchText = '星座很配！星盘相互吸引';
+            } else if (matchPercentage >= 70) {
+                matchText = '星座较配！星盘有良好互动';
+            } else if (matchPercentage >= 60) {
+                matchText = '星座一般！星盘需要调和';
+            } else {
+                matchText = '星座挑战！星盘需要更多磨合';
+            }
+            document.getElementById('matchDegreeText').textContent = matchText;
+            
+            // 运势和建议
+            displayFortuneAndAdvice(constellation1, constellation2, lovePercentage);
+        }
+
+        // 根据生日获取星座
+        function getConstellation(birthday) {
+            const date = new Date(birthday);
+            const month = date.getMonth() + 1;
+            const day = date.getDate();
+            
+            if ((month === 3 && day >= 21) || (month === 4 && day <= 19)) return "白羊座";
+            if ((month === 4 && day >= 20) || (month === 5 && day <= 20)) return "金牛座";
+            if ((month === 5 && day >= 21) || (month === 6 && day <= 21)) return "双子座";
+            if ((month === 6 && day >= 22) || (month === 7 && day <= 22)) return "巨蟹座";
+            if ((month === 7 && day >= 23) || (month === 8 && day <= 22)) return "狮子座";
+            if ((month === 8 && day >= 23) || (month === 9 && day <= 22)) return "处女座";
+            if ((month === 9 && day >= 23) || (month === 10 && day <= 23)) return "天秤座";
+            if ((month === 10 && day >= 24) || (month === 11 && day <= 22)) return "天蝎座";
+            if ((month === 11 && day >= 23) || (month === 12 && day <= 21)) return "射手座";
+            if ((month === 12 && day >= 22) || (month === 1 && day <= 19)) return "摩羯座";
+            if ((month === 1 && day >= 20) || (month === 2 && day <= 18)) return "水瓶座";
+            return "双鱼座";
+        }
+
+        // 计算星座匹配度
+        function calculateConstellationMatch(constellation1, constellation2) {
+            // 简化版星座匹配算法
+            const elements = {
+                "火": ["火", "风"],
+                "土": ["土", "水"], 
+                "风": ["风", "火"],
+                "水": ["水", "土"]
+            };
+            
+            const element1 = constellationData[constellation1].element;
+            const element2 = constellationData[constellation2].element;
+            
+            if (element1 === element2) return 85;
+            if (elements[element1].includes(element2)) return 75;
+            return 65;
+        }
+
+        // 显示运势和建议
+        function displayFortuneAndAdvice(constellation1, constellation2, lovePercentage) {
+            // 今日运势
+            const fortunes = [
+                "今天适合一起规划未来，你们的想法会很默契",
+                "感情运势上升，适合表达内心真实感受",
+                "一起尝试新事物会让感情更加甜蜜",
+                "沟通是今天的关键，多倾听对方的想法",
+                "小小的惊喜会让感情更加升温",
+                "今天适合回顾美好回忆，增进感情"
+            ];
+            
+            document.getElementById('todayFortune').textContent = 
+                fortunes[Math.floor(Math.random() * fortunes.length)];
+            
+            // 本周指引
+            const guides = [
+                "本周多安排共同活动，加强情感连接",
+                "关注彼此的情感需求，及时给予支持",
+                "尝试新的相处模式，给感情注入新鲜感",
+                "本周适合深入沟通，解决潜在问题",
+                "多创造浪漫时刻，保持爱情的甜蜜度"
+            ];
+            
+            document.getElementById('weekFortune').textContent = 
+                guides[Math.floor(Math.random() * guides.length)];
+            
+            // 恋爱特质
+            const traits1 = constellationData[constellation1].traits.slice(0, 2).join('、');
+            const traits2 = constellationData[constellation2].traits.slice(0, 2).join('、');
+            document.getElementById('love-traits').innerHTML = 
+                `<strong>${userInfo.name1} (${constellation1})</strong>: ${traits1}<br>
+                 <strong>${userInfo.name2} (${constellation2})</strong>: ${traits2}`;
+            
+            // 恋爱建议
+            const adviceList = document.getElementById('adviceList');
+            const advices = [
+                "保持经常的沟通，分享彼此的想法和感受",
+                "尊重彼此的独立性，给彼此适当的空间",
+                "培养共同爱好，创造更多美好回忆",
+                "学会包容和理解，接纳彼此的不完美",
+                "定期安排约会，保持爱情的新鲜感",
+                "相互支持成长，成为更好的自己"
+            ];
+            
+            advices.forEach(advice => {
+                const li = document.createElement('li');
+                li.textContent = advice;
+                adviceList.appendChild(li);
+            });
+            
+            // 运势日期
+            document.getElementById('fortuneDate').textContent = 
+                '更新于: ' + new Date().toLocaleDateString();
+        }
+
+        // 分享功能
+        function shareToWechat() {
+            alert('请使用微信扫描二维码分享给好友');
+        }
+
+        function shareToMoments() {
+            alert('请使用微信分享到朋友圈');
+        }
+
+        function copyResultLink() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                alert('链接已复制到剪贴板');
+            });
+        }
+
+        // 重新测试
+        function restartTest() {
+            document.getElementById('result').style.display = 'none';
+            document.getElementById('input-section').style.display = 'block';
+            
+            // 清空表单
+            document.getElementById('name1').value = '';
+            document.getElementById('name2').value = '';
+            document.getElementById('birthday1').value = '';
+            document.getElementById('birthday2').value = '';
+            
+            currentQuestionIndex = 0;
+            userAnswers = [];
+            userInfo = {};
+        }
+
+        // 生成500+题库
+        const generateQuestionBank = () => {
+            const baseQuestions = [
+                { question: "你们第一次见面的场景是？", options: ["朋友介绍", "偶然相遇", "工作/学习场合", "线上认识"], weight: [90, 100, 80, 70] },
+                { question: "你们吵架后通常如何和解？", options: ["主动道歉", "冷静后沟通", "需要第三方调解", "自然和好"], weight: [85, 100, 70, 90] },
+                { question: "你们的性格更接近？", options: ["都外向开朗", "都内向沉稳", "互补型", "时而相似时而互补"], weight: [75, 70, 100, 85] },
+                { question: "你们的共同爱好有多少？", options: ["几乎相同", "大部分相似", "各有特色", "完全不同"], weight: [85, 100, 80, 65] },
+                { question: "你们对未来的规划？", options: ["高度一致", "基本一致", "有分歧但可协调", "差异较大"], weight: [100, 90, 75, 60] },
+                { question: "你们的相处模式更像？", options: ["黏人型", "独立型", "平衡型", "随缘型"], weight: [70, 65, 100, 80] },
+                { question: "你们最常因为什么产生分歧？", options: ["生活习惯", "价值观", "消费观念", "很少分歧"], weight: [75, 60, 70, 100] },
+                { question: "你们的爱情观是？", options: ["浪漫至上", "现实务实", "共同成长", "顺其自然"], weight: [85, 75, 100, 80] },
+                { question: "你们的沟通方式？", options: ["无话不谈", "有保留但坦诚", "需要时才沟通", "有时会有隔阂"], weight: [100, 90, 70, 60] },
+                { question: "你们的默契程度？", options: ["心有灵犀", "比较默契", "一般般", "需要说明"], weight: [100, 90, 75, 60] },
+                { question: "你们处理压力的方式？", options: ["互相支持", "各自处理", "一起放松", "需要独处空间"], weight: [100, 70, 90, 80] },
+                { question: "你们对感情的投入程度？", options: ["双方都很投入", "一方更主动", "比较均衡", "看情况"], weight: [100, 80, 90, 70] },
+                { question: "你们的家庭背景差异？", options: ["相似", "略有差异", "差异较大", "完全不同"], weight: [90, 85, 70, 60] },
+                { question: "你们的理想约会是？", options: ["浪漫晚餐", "户外活动", "宅家休闲", "探索新事物"], weight: [90, 85, 80, 95] },
+                { question: "你们对忠诚的看法？", options: ["绝对忠诚", "信任最重要", "需要约束", "顺其自然"], weight: [100, 95, 80, 70] },
+                { question: "你们的感情发展速度？", options: ["迅速升温", "循序渐进", "时快时慢", "比较缓慢"], weight: [80, 100, 85, 75] },
+                { question: "你们解决问题的方式？", options: ["理性分析", "感性处理", "共同商量", "交给时间"], weight: [85, 75, 100, 70] },
+                { question: "你们对仪式感的重视程度？", options: ["非常重视", "一般重视", "不太在意", "看心情"], weight: [90, 85, 75, 80] },
+                { question: "你们的未来目标？", options: ["事业为先", "家庭为重", "平衡发展", "享受当下"], weight: [70, 90, 100, 80] },
+                { question: "你们眼中对方的优点？", options: ["性格好", "能力强", "三观正", "相处舒服"], weight: [95, 90, 100, 95] },
+                { question: "你们的爱情保鲜秘诀？", options: ["经常沟通", "制造惊喜", "保持独立", "共同成长"], weight: [90, 85, 80, 100] },
+                { question: "你们如何庆祝纪念日？", options: ["精心准备", "简单庆祝", "互相陪伴", "不太在意"], weight: [95, 90, 85, 70] },
+                { question: "你们对异地恋的看法？", options: ["坚决反对", "可以接受", "考验感情", "随缘"], weight: [70, 90, 85, 75] },
+                { question: "你们的消费习惯？", options: ["都很节俭", "都爱消费", "互补型", "各自独立"], weight: [85, 70, 100, 80] },
+                { question: "你们的作息时间？", options: ["完全同步", "基本同步", "差异较大", "完全相反"], weight: [90, 95, 75, 60] },
+                { question: "你们的社交圈？", options: ["完全融合", "部分重叠", "各自独立", "互不干涉"], weight: [85, 95, 75, 65] },
+                { question: "你们的幽默感？", options: ["完全一致", "基本相同", "差异较大", "互不理解"], weight: [100, 90, 70, 60] },
+                { question: "你们的决策方式？", options: ["共同决定", "一方主导", "轮流做主", "随缘"], weight: [95, 80, 85, 70] },
+                { question: "你们的表达爱的方式？", options: ["言语表达", "实际行动", "礼物馈赠", "默默付出"], weight: [85, 95, 80, 85] },
+                { question: "你们的冲突处理？", options: ["立即解决", "冷静后处理", "回避问题", "寻求帮助"], weight: [90, 100, 65, 80] }
+            ];
+
+            const questionTypes = [
+                { prefix: "关于", suffix: "，你们的看法是？" },
+                { prefix: "当遇到", suffix: "时，你们会？" },
+                { prefix: "对于", suffix: "，你们的态度是？" },
+                { prefix: "在", suffix: "方面，你们的表现是？" },
+                { prefix: "面对", suffix: "，你们的反应是？" }
+            ];
+
+            const topics = [
+                "金钱管理", "家庭责任", "休闲娱乐", "社交活动", "职业发展", 
+                "个人成长", "健康生活", "旅行计划", "节日庆祝", "家务分工",
+                "子女教育", "宠物饲养", "饮食习惯", "睡眠习惯", "运动健身",
+                "阅读学习", "音乐品味", "电影偏好", "艺术欣赏", "购物消费",
+                "投资理财", "慈善公益", "环境保护", "政治观点", "宗教信仰",
+                "科技产品", "时尚潮流", "人际关系", "情绪管理", "时间规划"
+            ];
+
+            const optionsTemplates = [
+                ["完全一致", "基本一致", "有分歧但可协调", "差异较大"],
+                ["都非常重视", "一方更重视", "都不太在意", "随缘"],
+                ["经常一起", "偶尔一起", "各自独立", "看情况"],
+                ["高度契合", "比较契合", "部分契合", "不太契合"],
+                ["积极沟通", "冷静处理", "回避问题", "寻求帮助"]
+            ];
+
+            const weightTemplates = [
+                [100, 90, 75, 60],
+                [95, 85, 70, 65],
+                [90, 95, 80, 70],
+                [85, 90, 80, 75],
+                [80, 85, 90, 70]
+            ];
+
+            let fullQuizBank = [...baseQuestions];
+            
+            // 生成更多题目以达到500+
+            while (fullQuizBank.length < 520) {
+                const type = questionTypes[Math.floor(Math.random() * questionTypes.length)];
+                const topic = topics[Math.floor(Math.random() * topics.length)];
+                const optionsTemplate = optionsTemplates[Math.floor(Math.random() * optionsTemplates.length)];
+                const weightTemplate = weightTemplates[Math.floor(Math.random() * weightTemplates.length)];
+                
+                fullQuizBank.push({
+                    question: `${type.prefix}${topic}${type.suffix}`,
+                    options: [...optionsTemplate],
+                    weight: [...weightTemplate]
+                });
+            }
+            
+            return fullQuizBank;
+        };
+
+        // 生成500+题库
+        const fullQuizBank = generateQuestionBank();
+
+        // 全局变量
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+        let userInfo = {};
+        let quizQuestions = [];
+    </script>
+</body>
+</html>
